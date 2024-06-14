@@ -300,3 +300,4 @@
 /Users/piotr.waluszek/LibraryMan/LibraryMan/obj/Debug/net8.0/LibraryMan.pdb
 /Users/piotr.waluszek/LibraryMan/LibraryMan/obj/Debug/net8.0/LibraryMan.genruntimeconfig.cache
 /Users/piotr.waluszek/LibraryMan/LibraryMan/obj/Debug/net8.0/ref/LibraryMan.dll
+/Users/piotr.waluszek/LibraryMan/LibraryMan/obj/Debug/net8.0/LibraryMan.sourcelink.json

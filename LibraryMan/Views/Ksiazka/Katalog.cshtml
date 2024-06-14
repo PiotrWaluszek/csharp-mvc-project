@@ -17,7 +17,7 @@
         <h2>Filtrowanie</h2>
         <form method="get" asp-action="Katalog">
             <div class="form-group">
-                <label for="BookName">Nazwa Piwa</label>
+                <label for="BookName">Tytul Ksiazki</label>
                 <select id="BookName" name="BookName" class="form-control">
                     <option value="">Wszystkie</option>
                     @foreach (var name in bookNames)
@@ -51,7 +51,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Genre">Styl</label>
+                <label for="Genre">Gatunek</label>
                 <select id="Genre" name="Genre" class="form-control">
                     <option value="">Wszystkie</option>
                     @foreach (var genre in genres)

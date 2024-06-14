@@ -31,3 +31,4 @@
 /Users/piotr.waluszek/LibraryMan/RestApi/obj/Debug/net8.0/RestApi.pdb
 /Users/piotr.waluszek/LibraryMan/RestApi/obj/Debug/net8.0/RestApi.genruntimeconfig.cache
 /Users/piotr.waluszek/LibraryMan/RestApi/obj/Debug/net8.0/ref/RestApi.dll
+/Users/piotr.waluszek/LibraryMan/RestApi/obj/Debug/net8.0/RestApi.sourcelink.json

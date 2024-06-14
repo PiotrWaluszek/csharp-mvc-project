@@ -22,8 +22,12 @@ namespace LibraryMan.Controllers
         // GET: Ksiazka
         public async Task<IActionResult> Index()
         {
-            var libraryManContext = _context.KsiazkaModel.Include(k => k.WydawnictwoModel);
-            return View(await libraryManContext.ToListAsync());
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                var libraryManContext = _context.KsiazkaModel.Include(k => k.WydawnictwoModel);
+                return View(await libraryManContext.ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Katalog(string BookName, string PublisherName, string Genre, double? MinRating, double? MaxRating, string SortBy)
@@ -104,27 +108,35 @@ namespace LibraryMan.Controllers
         // GET: Ksiazka/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.KsiazkaModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id == null || _context.KsiazkaModel == null)
+                {
+                    return NotFound();
+                }
 
-            var ksiazkaModel = await _context.KsiazkaModel
-                .Include(k => k.WydawnictwoModel)
-                .FirstOrDefaultAsync(m => m.BookName == id);
-            if (ksiazkaModel == null)
-            {
-                return NotFound();
-            }
+                var ksiazkaModel = await _context.KsiazkaModel
+                    .Include(k => k.WydawnictwoModel)
+                    .FirstOrDefaultAsync(m => m.BookName == id);
+                if (ksiazkaModel == null)
+                {
+                    return NotFound();
+                }
 
-            return View(ksiazkaModel);
+                return View(ksiazkaModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Ksiazka/Create
         public IActionResult Create()
         {
-            ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName");
-            return View();
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
+            {
+                ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName");
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Ksiazka/Create
@@ -134,31 +146,39 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookName,PublisherName,Genre,AverageRating")] KsiazkaModel ksiazkaModel)
         {
-            if (ModelState.IsValid)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                _context.Add(ksiazkaModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(ksiazkaModel);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
+                return View(ksiazkaModel);
             }
-            ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
-            return View(ksiazkaModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Ksiazka/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.KsiazkaModel == null)
-            {
-                return NotFound();
-            }
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
+            { 
+                if (id == null || _context.KsiazkaModel == null)
+                {
+                    return NotFound();
+                }
 
-            var ksiazkaModel = await _context.KsiazkaModel.FindAsync(id);
-            if (ksiazkaModel == null)
-            {
-                return NotFound();
+                var ksiazkaModel = await _context.KsiazkaModel.FindAsync(id);
+                if (ksiazkaModel == null)
+                {
+                    return NotFound();
+                }
+                ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
+                return View(ksiazkaModel);
             }
-            ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
-            return View(ksiazkaModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Ksiazka/Edit/5
@@ -168,52 +188,60 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("BookName,PublisherName,Genre,AverageRating")] KsiazkaModel ksiazkaModel)
         {
-            if (id != ksiazkaModel.BookName)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id != ksiazkaModel.BookName)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(ksiazkaModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KsiazkaModelExists(ksiazkaModel.BookName))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(ksiazkaModel);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!KsiazkaModelExists(ksiazkaModel.BookName))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
+                return View(ksiazkaModel);
             }
-            ViewData["PublisherName"] = new SelectList(_context.Set<WydawnictwoModel>(), "PublisherName", "PublisherName", ksiazkaModel.PublisherName);
-            return View(ksiazkaModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Ksiazka/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.KsiazkaModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
             {
-                return NotFound();
-            }
+                if (id == null || _context.KsiazkaModel == null)
+                {
+                    return NotFound();
+                }
 
-            var ksiazkaModel = await _context.KsiazkaModel
-                .Include(k => k.WydawnictwoModel)
-                .FirstOrDefaultAsync(m => m.BookName == id);
-            if (ksiazkaModel == null)
-            {
-                return NotFound();
-            }
+                var ksiazkaModel = await _context.KsiazkaModel
+                    .Include(k => k.WydawnictwoModel)
+                    .FirstOrDefaultAsync(m => m.BookName == id);
+                if (ksiazkaModel == null)
+                {
+                    return NotFound();
+                }
 
-            return View(ksiazkaModel);
+                return View(ksiazkaModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Ksiazka/Delete/5
@@ -221,18 +249,22 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.KsiazkaModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return Problem("Entity set 'LibraryManContext.KsiazkaModel'  is null.");
-            }
-            var ksiazkaModel = await _context.KsiazkaModel.FindAsync(id);
-            if (ksiazkaModel != null)
-            {
-                _context.KsiazkaModel.Remove(ksiazkaModel);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (_context.KsiazkaModel == null)
+                {
+                    return Problem("Entity set 'LibraryManContext.KsiazkaModel'  is null.");
+                }
+                var ksiazkaModel = await _context.KsiazkaModel.FindAsync(id);
+                if (ksiazkaModel != null)
+                {
+                    _context.KsiazkaModel.Remove(ksiazkaModel);
+                }
+                
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction("Index", "Home");
         }
 
         private bool KsiazkaModelExists(string id)

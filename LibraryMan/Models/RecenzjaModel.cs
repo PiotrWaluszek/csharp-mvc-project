@@ -29,7 +29,6 @@ public class RecenzjaModel
     [ForeignKey("UserID")]
     public UzytkownikModel? UzytkownikModel { get; set; }
 
-    // Relacja wiele do jednego z Piwo
     [ForeignKey("BookName")]
     public KsiazkaModel? KsiazkaModel { get; set; }
 }

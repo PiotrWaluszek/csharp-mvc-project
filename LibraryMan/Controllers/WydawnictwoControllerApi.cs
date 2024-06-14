@@ -77,30 +77,40 @@ namespace LibraryMan.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutWydawnictwoModel(string id, WydawnictwoModel wydawnictwoModel)
         {
-            if (id != wydawnictwoModel.PublisherName)
+            var accessToken = HttpContext.Request.Headers["Authorization"];
+            var email = HttpContext.Request.Headers["Email"];
+            var userContext = _context.UzytkownikModel.Where(p=>p.Email==email.ToString()).Where(m => m.Token == accessToken.ToString()).Any();
+            if (userContext && accessToken.ToString()!="0")
             {
-                return BadRequest();
-            }
-
-            _context.Entry(wydawnictwoModel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WydawnictwoModelExists(id))
+                if (id != wydawnictwoModel.PublisherName)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                _context.Entry(wydawnictwoModel).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!WydawnictwoModelExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return NoContent();
+            }
+            else
+            {
+                return Problem("Autoryzacja się nie powiodła.");
+            }
         }
 
         // POST: api/WydawnictwoControllerApi
@@ -108,48 +118,68 @@ namespace LibraryMan.Controllers
         [HttpPost]
         public async Task<ActionResult<WydawnictwoModel>> PostWydawnictwoModel(WydawnictwoModel wydawnictwoModel)
         {
-          if (_context.WydawnictwoModel == null)
-          {
-              return Problem("Entity set 'LibraryManContext.WydawnictwoModel'  is null.");
-          }
-            _context.WydawnictwoModel.Add(wydawnictwoModel);
-            try
+            var accessToken = HttpContext.Request.Headers["Authorization"];
+            var email = HttpContext.Request.Headers["Email"];
+            var userContext = _context.UzytkownikModel.Where(p=>p.Email==email.ToString()).Where(m => m.Token == accessToken.ToString()).Any();
+            if (userContext && accessToken.ToString()!="0")
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (WydawnictwoModelExists(wydawnictwoModel.PublisherName))
+                if (_context.WydawnictwoModel == null)
                 {
-                    return Conflict();
+                    return Problem("Entity set 'LibraryManContext.WydawnictwoModel'  is null.");
                 }
-                else
-                {
-                    throw;
-                }
-            }
+                    _context.WydawnictwoModel.Add(wydawnictwoModel);
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateException)
+                    {
+                        if (WydawnictwoModelExists(wydawnictwoModel.PublisherName))
+                        {
+                            return Conflict();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
 
-            return CreatedAtAction("GetWydawnictwoModel", new { id = wydawnictwoModel.PublisherName }, wydawnictwoModel);
+                    return CreatedAtAction("GetWydawnictwoModel", new { id = wydawnictwoModel.PublisherName }, wydawnictwoModel);
+            }
+            else
+            {
+                return Problem("Autoryzacja się nie powiodła.");
+            }
         }
 
         // DELETE: api/WydawnictwoControllerApi/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWydawnictwoModel(string id)
         {
-            if (_context.WydawnictwoModel == null)
+            var accessToken = HttpContext.Request.Headers["Authorization"];
+            var email = HttpContext.Request.Headers["Email"];
+            var userContext = _context.UzytkownikModel.Where(p=>p.Email==email.ToString()).Where(m => m.Token == accessToken.ToString()).Any();
+            if (userContext && accessToken.ToString()!="0")
             {
-                return NotFound();
+                if (_context.WydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
+                var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
+                if (wydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
+
+                _context.WydawnictwoModel.Remove(wydawnictwoModel);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-            var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
-            if (wydawnictwoModel == null)
+            else
             {
-                return NotFound();
+                return Problem("Autoryzacja się nie powiodła.");
             }
-
-            _context.WydawnictwoModel.Remove(wydawnictwoModel);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool WydawnictwoModelExists(string id)

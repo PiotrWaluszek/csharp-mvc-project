@@ -90,17 +90,21 @@ namespace LibraryMan.Controllers
         // GET: Uzytkownik/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.UzytkownikModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id == null || _context.UzytkownikModel == null)
+                {
+                    return NotFound();
+                }
 
-            var uzytkownikModel = await _context.UzytkownikModel.FindAsync(id);
-            if (uzytkownikModel == null)
-            {
-                return NotFound();
+                var uzytkownikModel = await _context.UzytkownikModel.FindAsync(id);
+                if (uzytkownikModel == null)
+                {
+                    return NotFound();
+                }
+                return View(uzytkownikModel);
             }
-            return View(uzytkownikModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Uzytkownik/Edit/5
@@ -110,50 +114,58 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,Email,Password,IsAdmin,Token")] UzytkownikModel uzytkownikModel)
         {
-            if (id != uzytkownikModel.UserID)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id != uzytkownikModel.UserID)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(uzytkownikModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UzytkownikModelExists(uzytkownikModel.UserID))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(uzytkownikModel);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!UzytkownikModelExists(uzytkownikModel.UserID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(uzytkownikModel);
             }
-            return View(uzytkownikModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Uzytkownik/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.UzytkownikModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id == null || _context.UzytkownikModel == null)
+                {
+                    return NotFound();
+                }
 
-            var uzytkownikModel = await _context.UzytkownikModel
-                .FirstOrDefaultAsync(m => m.UserID == id);
-            if (uzytkownikModel == null)
-            {
-                return NotFound();
-            }
+                var uzytkownikModel = await _context.UzytkownikModel
+                    .FirstOrDefaultAsync(m => m.UserID == id);
+                if (uzytkownikModel == null)
+                {
+                    return NotFound();
+                }
 
-            return View(uzytkownikModel);
+                return View(uzytkownikModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Uzytkownik/Delete/5
@@ -161,18 +173,22 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.UzytkownikModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return Problem("Entity set 'LibraryManContext.UzytkownikModel'  is null.");
+                if (_context.UzytkownikModel == null)
+                {
+                    return Problem("Entity set 'LibraryManContext.UzytkownikModel'  is null.");
+                }
+                var uzytkownikModel = await _context.UzytkownikModel.FindAsync(id);
+                if (uzytkownikModel != null)
+                {
+                    _context.UzytkownikModel.Remove(uzytkownikModel);
+                }
+                
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            var uzytkownikModel = await _context.UzytkownikModel.FindAsync(id);
-            if (uzytkownikModel != null)
-            {
-                _context.UzytkownikModel.Remove(uzytkownikModel);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool UzytkownikModelExists(int id)

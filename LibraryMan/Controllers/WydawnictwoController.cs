@@ -30,25 +30,34 @@ namespace LibraryMan.Controllers
         // GET: Wydawnictwo/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.WydawnictwoModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
             {
-                return NotFound();
-            }
+                if (id == null || _context.WydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
 
-            var wydawnictwoModel = await _context.WydawnictwoModel
-                .FirstOrDefaultAsync(m => m.PublisherName == id);
-            if (wydawnictwoModel == null)
-            {
-                return NotFound();
-            }
+                var wydawnictwoModel = await _context.WydawnictwoModel
+                    .FirstOrDefaultAsync(m => m.PublisherName == id);
+                if (wydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
 
             return View(wydawnictwoModel);
+        }
+        return RedirectToAction("Index", "Home");
         }
 
         // GET: Wydawnictwo/Create
         public IActionResult Create()
         {
-            return View();
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
 
         // POST: Wydawnictwo/Create
@@ -58,29 +67,37 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PublisherName,City,Country,Founded,Description")] WydawnictwoModel wydawnictwoModel)
         {
-            if (ModelState.IsValid)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                _context.Add(wydawnictwoModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(wydawnictwoModel);
+                if (ModelState.IsValid)
+                {
+                    _context.Add(wydawnictwoModel);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(wydawnictwoModel);
+                }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Wydawnictwo/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.WydawnictwoModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id == null || _context.WydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
 
-            var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
-            if (wydawnictwoModel == null)
-            {
-                return NotFound();
+                var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
+                if (wydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
+                return View(wydawnictwoModel);
             }
-            return View(wydawnictwoModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Wydawnictwo/Edit/5
@@ -90,50 +107,59 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("PublisherName,City,Country,Founded,Description")] WydawnictwoModel wydawnictwoModel)
         {
-            if (id != wydawnictwoModel.PublisherName)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
-            }
+                if (id != wydawnictwoModel.PublisherName)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(wydawnictwoModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WydawnictwoModelExists(wydawnictwoModel.PublisherName))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(wydawnictwoModel);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!WydawnictwoModelExists(wydawnictwoModel.PublisherName))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(wydawnictwoModel);
             }
-            return View(wydawnictwoModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Wydawnictwo/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.WydawnictwoModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return NotFound();
+                if (id == null || _context.WydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
+
+                var wydawnictwoModel = await _context.WydawnictwoModel
+                    .FirstOrDefaultAsync(m => m.PublisherName == id);
+                if (wydawnictwoModel == null)
+                {
+                    return NotFound();
+                }
+
+                return View(wydawnictwoModel);
             }
 
-            var wydawnictwoModel = await _context.WydawnictwoModel
-                .FirstOrDefaultAsync(m => m.PublisherName == id);
-            if (wydawnictwoModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(wydawnictwoModel);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Wydawnictwo/Delete/5
@@ -141,18 +167,22 @@ namespace LibraryMan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.WydawnictwoModel == null)
+            if(HttpContext.Session.GetString("IsAdmin") == "True") 
             {
-                return Problem("Entity set 'LibraryManContext.WydawnictwoModel'  is null.");
-            }
-            var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
-            if (wydawnictwoModel != null)
-            {
-                _context.WydawnictwoModel.Remove(wydawnictwoModel);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                if (_context.WydawnictwoModel == null)
+                {
+                    return Problem("Entity set 'LibraryManContext.WydawnictwoModel'  is null.");
+                }
+                var wydawnictwoModel = await _context.WydawnictwoModel.FindAsync(id);
+                if (wydawnictwoModel != null)
+                {
+                    _context.WydawnictwoModel.Remove(wydawnictwoModel);
+                }
+                
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction("Index", "Home");
         }
 
         private bool WydawnictwoModelExists(string id)

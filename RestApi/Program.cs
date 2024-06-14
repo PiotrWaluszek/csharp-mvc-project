@@ -11,56 +11,55 @@ public class RestApiEndPoints
     private static readonly string accessToken = "QenEmNl4jq6QK8fBcEJxbJlxl/s9PYSF+44y3pKLEF8=";
     static async Task Main(string[] args)
     {
-        Console.OutputEncoding = Encoding.Unicode;
-        Console.InputEncoding = Encoding.Unicode;
-        await GetWydawinctwoAsync();
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
         bool _running = true;
-    //     while (_running)
-    //     {
-    //         Console.WriteLine("Wybierz polecenie:");
-    //         Console.WriteLine("1. Dodaj browar");
-    //         Console.WriteLine("2. Pobierz listę browarów");
-    //         Console.WriteLine("3. Pobierz szczegóły browaru");
-    //         Console.WriteLine("4. Aktualizuj dane browaru");
-    //         Console.WriteLine("5. Usuń browar");
-    //         Console.WriteLine("0. Wyjdź");
+        while (_running)
+        {
+            Console.WriteLine("Wybierz polecenie:");
+            Console.WriteLine("1. Dodaj wydawnictwo");
+            Console.WriteLine("2. Pobierz listę wydawnictw");
+            Console.WriteLine("3. Pobierz szczegóły wydawnictwa");
+            Console.WriteLine("4. Aktualizuj dane wydawnictwa");
+            Console.WriteLine("5. Usuń wydawnictwo");
+            Console.WriteLine("0. Wyjdź");
 
-    //         var input = Console.ReadLine();
+            var input = Console.ReadLine();
 
-    //         switch (input)
-    //         {
-    //             case "1":
-    //                 PostBrowar();
-    //                 Console.WriteLine();
-    //                 break;
-    //             case "2":
-    //                 await GetWydawinctwoAsync();
-    //                 Console.WriteLine();
-    //                 break;
-    //             case "3":
-    //                 await GetSzczegolyBrowaru();
-    //                 Console.WriteLine();
-    //                 break;
-    //             case "4":
-    //                 await AktualizujBrowar();
-    //                 Console.WriteLine();
-    //                 break;
-    //             case "5":
-    //                 await UsunBrowar();
-    //                 Console.WriteLine();
-    //                 break;
-    //             case "0":
-    //                 _running = false;
-    //                 break;
-    //             default:
-    //                 Console.WriteLine("Nieprawidłowe polecenie. Spróbuj ponownie.");
-    //                 break;
-    //         }
-    //     }
+            switch (input)
+            {
+                case "1":
+                    PostWydawnictwo();
+                    Console.WriteLine();
+                    break;
+                case "2":
+                    await GetWydawinctwoAsync();
+                    Console.WriteLine();
+                    break;
+                case "3":
+                    await GetSzczegolyWydawnictwa();
+                    Console.WriteLine();
+                    break;
+                case "4":
+                    await AktualizujWydawnictwo();
+                    Console.WriteLine();
+                    break;
+                case "5":
+                    await UsunWydawnictwo();
+                    Console.WriteLine();
+                    break;
+                case "0":
+                    _running = false;
+                    break;
+                default:
+                    Console.WriteLine("Nieprawidłowe polecenie. Spróbuj ponownie.");
+                    break;
+            }
+        }
     }
-    public static void PostBrowar(){
-        Console.Write("Podaj nazwę browaru:");
-        var BreweryNamePost = Console.ReadLine();
+    public static void PostWydawnictwo(){
+        Console.Write("Podaj nazwę wydawnictwa:");
+        var PublisherNamePost = Console.ReadLine();
         Console.Write("Podaj miasto:");
         var CityPost = Console.ReadLine();
         Console.Write("Podaj kraj:");
@@ -80,7 +79,7 @@ public class RestApiEndPoints
         {
             string json = JsonSerializer.Serialize(new
                         {
-                            BreweryName = BreweryNamePost,
+                            PublisherName = PublisherNamePost,
                             City = CityPost,
                             Country = CountryPost,
                             Founded = FoundedPost,
@@ -102,11 +101,11 @@ public class RestApiEndPoints
             var response = ex.Response as HttpWebResponse;
             if (response != null && response.StatusCode == HttpStatusCode.NotFound)
             {
-                Console.WriteLine("Nie znaleziono browaru o podanym identyfikatorze.");
+                Console.WriteLine("Nie znaleziono wydawnictwa o podanym identyfikatorze.");
             }
             else
             {
-                Console.WriteLine("Wystąpił błąd podczas dodawania browaru.");
+                Console.WriteLine("Wystąpił błąd podczas dodawania wydawnictwa.");
             }
         }
     }
@@ -133,20 +132,20 @@ public class RestApiEndPoints
             var response = ex.Response as HttpWebResponse;
             if (response != null && response.StatusCode == HttpStatusCode.NotFound)
             {
-                Console.WriteLine("Nie znaleziono browaru o podanym identyfikatorze.");
+                Console.WriteLine("Nie znaleziono wydawnictwa o podanym identyfikatorze.");
             }
             else
             {
-                Console.WriteLine("Wystąpił błąd podczas pobierania browaru.");
+                Console.WriteLine("Wystąpił błąd podczas pobierania wydawnictwa.");
             }
         }
 
     }
-    public static async Task GetSzczegolyBrowaru()
+    public static async Task GetSzczegolyWydawnictwa()
     {
-        Console.Write("Podaj nazwę browaru, którego szczegóły chcesz wyświetlić: ");
-        string BreweryName = Console.ReadLine();
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5151/api/BrowarModelControllerApi/{BreweryName}");
+        Console.Write("Podaj nazwę wydawnictwa, którego szczegóły chcesz wyświetlić: ");
+        string PublisherName = Console.ReadLine();
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5052/api/WydawnictwoControllerApi/{PublisherName}");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "GET";
 
@@ -169,18 +168,18 @@ public class RestApiEndPoints
             var response = ex.Response as HttpWebResponse;
             if (response != null && response.StatusCode == HttpStatusCode.NotFound)
             {
-                Console.WriteLine("Nie znaleziono browaru o podanym identyfikatorze.");
+                Console.WriteLine("Nie znaleziono wydawnictwa o podanym identyfikatorze.");
             }
             else
             {
-                Console.WriteLine("Wystąpił błąd podczas pobierania browaru.");
+                Console.WriteLine("Wystąpił błąd podczas pobierania wydawnictwa.");
             }
         }
     }
-    public static async Task AktualizujBrowar()
+    public static async Task AktualizujWydawnictwo()
     {
-        Console.Write("Podaj nazwę browaru:");
-        var BreweryNamePut = Console.ReadLine();
+        Console.Write("Podaj nazwę wydawnictwa:");
+        var PublisherNamePut = Console.ReadLine();
         Console.Write("Podaj miasto:");
         var CityPut = Console.ReadLine();
         Console.Write("Podaj kraj:");
@@ -190,7 +189,7 @@ public class RestApiEndPoints
         Console.Write("Podaj opis:");
         var DescriptionPost = Console.ReadLine();
         
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5151/api/BrowarModelControllerApi/{BreweryNamePut}");
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5052/api/WydawnictwoControllerApi/{PublisherNamePut}");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "PUT";
 
@@ -201,7 +200,7 @@ public class RestApiEndPoints
         {
             string json = JsonSerializer.Serialize(new
             {
-                BreweryName = BreweryNamePut,
+                PublisherName = PublisherNamePut,
                 City = CityPut,
                 Country = CountryPut,
                 Founded = FoundedPut,
@@ -216,11 +215,11 @@ public class RestApiEndPoints
             {
                 if (httpResponse.StatusCode == HttpStatusCode.NoContent)
                 {
-                    Console.WriteLine("Browar został zaktualizowany pomyślnie.");
+                    Console.WriteLine("Wydawnictwo został zaktualizowany pomyślnie.");
                 }
                 else
                 {
-                    Console.WriteLine($"Nie udało się zaktualizować browaru. Kod odpowiedzi: {httpResponse.StatusCode}");
+                    Console.WriteLine($"Nie udało się zaktualizować wydawnictwa. Kod odpowiedzi: {httpResponse.StatusCode}");
                 }
             }
         }
@@ -229,19 +228,19 @@ public class RestApiEndPoints
             var response = ex.Response as HttpWebResponse;
             if (response != null && response.StatusCode == HttpStatusCode.NotFound)
             {
-                Console.WriteLine("Nie znaleziono browaru o podanym identyfikatorze.");
+                Console.WriteLine("Nie znaleziono wydawnictwa o podanym identyfikatorze.");
             }
             else
             {
-                Console.WriteLine("Wystąpił błąd podczas aktualizacji browaru.");
+                Console.WriteLine("Wystąpił błąd podczas aktualizacji wydawnictwa.");
             }
         }
     }
-    public static async Task UsunBrowar()
+    public static async Task UsunWydawnictwo()
     {
-        Console.Write("Podaj nazwę browaru, który chcesz usunąć: ");
-        var BreweryName = Console.ReadLine();
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5151/api/BrowarModelControllerApi/{BreweryName}");
+        Console.Write("Podaj nazwę wydawnictwa, który chcesz usunąć: ");
+        var PublisherName = Console.ReadLine();
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://localhost:5052/api/WydawnictwoControllerApi/{PublisherName}");
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "DELETE";
 
@@ -254,11 +253,11 @@ public class RestApiEndPoints
             {
                 if (httpResponse.StatusCode == HttpStatusCode.NoContent)
                 {
-                    Console.WriteLine("Browar został pomyślnie usunięty.");
+                    Console.WriteLine("Wydawnictwo został pomyślnie usunięty.");
                 }
                 else
                 {
-                    Console.WriteLine($"Nie udało się usunąć browaru. Kod odpowiedzi: {httpResponse.StatusCode}");
+                    Console.WriteLine($"Nie udało się usunąć wydawnictwa. Kod odpowiedzi: {httpResponse.StatusCode}");
                 }
             }
         }
@@ -267,11 +266,11 @@ public class RestApiEndPoints
             var response = ex.Response as HttpWebResponse;
             if (response != null && response.StatusCode == HttpStatusCode.NotFound)
             {
-                Console.WriteLine("Nie znaleziono browaru o podanym identyfikatorze.");
+                Console.WriteLine("Nie znaleziono wydawnictwa o podanym identyfikatorze.");
             }
             else
             {
-                Console.WriteLine("Wystąpił błąd podczas usuwania browaru.");
+                Console.WriteLine("Wystąpił błąd podczas usuwania wydawnictwa.");
             }
         }
     }
