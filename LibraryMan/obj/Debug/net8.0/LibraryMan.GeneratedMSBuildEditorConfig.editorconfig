@@ -1,0 +1,143 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = LibraryMan
+build_property.RootNamespace = LibraryMan
+build_property.ProjectDir = /Users/piotr.waluszek/LibraryMan/LibraryMan/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/piotr.waluszek/LibraryMan/LibraryMan
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Home/Dokumentacja.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Eb2t1bWVudGFjamEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Decimal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9EZWNpbWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/Katalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9LYXRhbG9nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/KatalogRecenzji.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9LYXRhbG9nUmVjZW56amkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Ksiazka/KatalogWydawnictw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvS3NpYXprYS9LYXRhbG9nV3lkYXduaWN0dy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Recenzja/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVjZW56amEvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Recenzja/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVjZW56amEvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Recenzja/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVjZW56amEvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Recenzja/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVjZW56amEvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Recenzja/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVjZW56amEvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Uzytkownik/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXp5dGtvd25pay9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Uzytkownik/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXp5dGtvd25pay9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Uzytkownik/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXp5dGtvd25pay9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Uzytkownik/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXp5dGtvd25pay9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Uzytkownik/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXp5dGtvd25pay9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Wydawnictwo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV3lkYXduaWN0d28vQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Wydawnictwo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV3lkYXduaWN0d28vRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Wydawnictwo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV3lkYXduaWN0d28vRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Wydawnictwo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV3lkYXduaWN0d28vRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Wydawnictwo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvV3lkYXduaWN0d28vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/piotr.waluszek/LibraryMan/LibraryMan/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-3tvfjhwc2x
